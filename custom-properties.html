@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom properties AKA CSS Variables</title>
+
+    <style>
+        /* le variabili si creano nel contesto del root element (ovvero il tag html)
+        questo per dargli contesto globale */
+        :root {
+            --primary-color: rgb(238, 45, 245);
+            --font-sans: Arial, Helvetica, sans-serif;
+            --bg-color-primary: darkblue;
+            --h2-fs: 1.8rem;
+            --title-padding: 1.2rem;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-sans);
+            background-color: var(--bg-color-primary)
+        }
+
+        ul {
+            /* questa variabile cambia valore nel contesto di una ul, quindi tutti i suoi figli leggeranno lightcyan come valore al posto di darkblue */
+            --bg-color-primary: lightcyan;
+            color: var(--primary-color)
+        }
+
+        h2 {
+            font-size: var(--h2-fs);
+            color: var(--primary-color);
+            padding-inline: var(--title-padding)
+        }
+
+        h2.alt {
+            /* questa particolare h2 specifica valori differenti per le variabili, senza dover sovrascrivere il valore delle relative proprietà css 
+            che sono già applicate dal selettore generico h2 */
+            --primary-color: red;
+            --title-padding: 3rem;
+            --h2-fs: 2.5rem
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--bg-color-primary)
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h3>titolo</h3>
+        <ul>
+            <li>elemento</li>
+            <li>elemento</li>
+            <li>elemento</li>
+            <li>elemento</li>
+            <li>elemento</li>
+            <li>
+                <button>Click me</button>
+            </li>
+        </ul>
+    </header>
+
+
+    <h2 class="alt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor earum consequatur accusamus sint
+        harum nesciunt
+        repudiandae enim, voluptas doloribus nostrum minus iure deleniti eveniet sit ut esse, in assumenda ab!</h2>
+
+    <h2>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, omnis! Excepturi sunt distinctio atque corrupti
+        similique veritatis obcaecati! Repudiandae voluptas velit rem nostrum molestias est soluta, aut ad? Iure, quia!
+    </h2>
+    <h2>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, omnis! Excepturi sunt distinctio atque corrupti
+        similique veritatis obcaecati! Repudiandae voluptas velit rem nostrum molestias est soluta, aut ad? Iure, quia!
+    </h2>
+    <!-- anche un inline style può modificare il valore della variabile per il contesto specifico di questo elemento in particolare, 
+        ma non per gli altri elementi simili a lui -->
+    <h2 style="--primary-color: green">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, omnis! Excepturi
+        sunt distinctio atque corrupti
+        similique veritatis obcaecati! Repudiandae voluptas velit rem nostrum molestias est soluta, aut ad? Iure, quia!
+    </h2>
+    <h2>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil, omnis! Excepturi sunt distinctio atque corrupti
+        similique veritatis obcaecati! Repudiandae voluptas velit rem nostrum molestias est soluta, aut ad? Iure, quia!
+    </h2>
+
+    <script>
+        // in questo modo possiamo modificare il valore delle variabili tramite JavaScript
+        const h2Alt = document.querySelector("h2.alt")
+        h2Alt.style.setProperty("--primary-color", "yellow")
+    </script>
+</body>
+
+</html>
